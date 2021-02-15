@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSPPModelsTable extends Migration
+class CreateIzinModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateSPPModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_spp', function (Blueprint $table) {
-            $table->bigIncrements('id_spp');
+        Schema::create('tb_izin', function (Blueprint $table) {
+            $table->bigIncrements('id_izin');
             $table->integer('id_siswa');
-            $table->integer('bulan_spp');
-            $table->integer('tahun_spp');
-            $table->date('tgl_bayar');
-            $table->string('upload_bukti');
-            $table->tinyinteger('status');
+            $table->string('keterangan_izin');
+            $table->date('tgl_izin');
+            $table->string('foto_izin');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -33,6 +30,6 @@ class CreateSPPModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_spp');
+        Schema::dropIfExists('tb_izin');
     }
 }
