@@ -18,8 +18,8 @@ class CreateJadwalPelajaranModelsTable extends Migration
             $table->integer('id_jam_ajar');
             $table->integer('id_kelas');
             $table->integer('id_pelajaran');
-            $table->integer('id_guru');
-            $table->string('hari_jadwal');
+            $table->integer('id_pegawai');
+            $table->string('id_hari');
             $table->timestamps();
             $table->softDeletes();
         });

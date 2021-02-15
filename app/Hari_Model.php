@@ -5,13 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Kelas_Model extends Model
+class Hari_Model extends Model
 {
     use SoftDeletes;
-    protected $table = "tb_kelas";
-    protected $primaryKey = 'id_kelas';
+    protected $table = "tb_hari";
+    protected $primaryKey = 'id_hari';
     protected $fillable = [
-        'nama_kelas',
-        'grup_kelas',
+        'hari'
     ];
 }

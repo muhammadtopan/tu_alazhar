@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSPPModelsTable extends Migration
+class CreateHariModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateSPPModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_spp', function (Blueprint $table) {
-            $table->bigIncrements('id_spp');
-            $table->integer('id_siswa');
-            $table->date('tgl_bayar');
-            $table->string('upload_bukti');
-            $table->tinyinteger('status');
+        Schema::create('tb_hari', function (Blueprint $table) {
+            $table->bigIncrements('id_hari');
+            $table->string('hari');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +28,6 @@ class CreateSPPModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_spp');
+        Schema::dropIfExists('tb_hari');
     }
 }

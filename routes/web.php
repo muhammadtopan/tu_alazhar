@@ -23,13 +23,13 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('tabel', 'DashboardController@tabel')->name('tabel');
     Route::get('logout', 'DashboardController@logout')->name('logout');
 
-    // admin
-    Route::get('admin', 'AdminController@index')->name('admin');
-    Route::get('admin/create', 'AdminController@create')->name('admin.create');
-    Route::post('admin', 'AdminController@store')->name('admin.store');
-    Route::get('admin/{admin}', 'AdminController@edit')->name('admin.edit');
-    Route::put('admin/{admin}', 'AdminController@update')->name('admin.update');
-    Route::delete('admin/{admin}', 'AdminController@destroy')->name('admin.delete');
+    // user
+    Route::get('user', 'UserController@index')->name('user');
+    Route::get('user/create', 'UserController@create')->name('user.create');
+    Route::post('user', 'UserController@store')->name('user.store');
+    Route::get('user/{user}', 'UserController@edit')->name('user.edit');
+    Route::put('user/{user}', 'UserController@update')->name('user.update');
+    Route::delete('user/{user}', 'UserController@destroy')->name('user.delete');
 
     // pegawai
     Route::get('pegawai', 'PegawaiController@index')->name('pegawai');
@@ -47,13 +47,75 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::put('jabatan/{jabatan}', 'JabatanController@update')->name('jabatan.update');
     Route::delete('jabatan/{jabatan}', 'JabatanController@destroy')->name('jabatan.delete');
 
-    // categories
-    Route::get('kriteria', 'KriteriaController@index')->name('kriteria');
-    Route::get('kriteria/create', 'KriteriaController@create')->name('kriteria.create');
-    Route::post('kriteria', 'KriteriaController@store')->name('kriteria.store');
-    Route::get('kriteria/{kriteria}', 'KriteriaController@edit')->name('kriteria.edit');
-    Route::put('kriteria/{kriteria}', 'KriteriaController@update')->name('kriteria.update');
-    Route::delete('kriteria/{kriteria}', 'KriteriaController@destroy')->name('kriteria.delete');
+    // kelas
+    Route::get('kelas', 'KelasController@index')->name('kelas');
+    Route::get('kelas/create', 'KelasController@create')->name('kelas.create');
+    Route::post('kelas', 'KelasController@store')->name('kelas.store');
+    Route::get('kelas/{kelas}', 'KelasController@edit')->name('kelas.edit');
+    Route::put('kelas/{kelas}', 'KelasController@update')->name('kelas.update');
+    Route::delete('kelas/{kelas}', 'KelasController@destroy')->name('kelas.delete');
+    
+    Route::get('kelas/get/{id}', 'KelasController@getKelas');
+
+
+    // siswa
+    Route::get('siswa', 'SiswaController@index')->name('siswa');
+    Route::get('siswa/create', 'SiswaController@create')->name('siswa.create');
+    Route::post('siswa', 'SiswaController@store')->name('siswa.store');
+    Route::get('siswa/{siswa}', 'SiswaController@edit')->name('siswa.edit');
+    Route::put('siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
+    Route::delete('siswa/{siswa}', 'SiswaController@destroy')->name('siswa.delete');
+    
+    // jam ajar
+    Route::get('jam_ajar', 'JamAjarController@index')->name('jam_ajar');
+    Route::get('jam_ajar/create', 'JamAjarController@create')->name('jam_ajar.create');
+    Route::post('jam_ajar', 'JamAjarController@store')->name('jam_ajar.store');
+    Route::get('jam_ajar/{jam_ajar}', 'JamAjarController@edit')->name('jam_ajar.edit');
+    Route::put('jam_ajar/{jam_ajar}', 'JamAjarController@update')->name('jam_ajar.update');
+    Route::delete('jam_ajar/{jam_ajar}', 'JamAjarController@destroy')->name('jam_ajar.delete');
+
+    Route::get('jam_ajar/get/{id}', 'JamAjarController@getJam');
+
+    
+    // jadwal pelajaran
+    Route::get('jadwal_pelajaran', 'JadwalPelajaranController@index')->name('jadwal_pelajaran');
+    Route::get('jadwal_pelajaran/create', 'JadwalPelajaranController@create')->name('jadwal_pelajaran.create');
+    Route::post('jadwal_pelajaran', 'JadwalPelajaranController@store')->name('jadwal_pelajaran.store');
+    Route::get('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@edit')->name('jadwal_pelajaran.edit');
+    Route::put('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@update')->name('jadwal_pelajaran.update');
+    Route::delete('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@destroy')->name('jadwal_pelajaran.delete');
+    
+    // mata pelajaran
+    Route::get('pelajaran', 'PelajaranController@index')->name('pelajaran');
+    Route::get('pelajaran/create', 'PelajaranController@create')->name('pelajaran.create');
+    Route::post('pelajaran', 'PelajaranController@store')->name('pelajaran.store');
+    Route::get('pelajaran/{pelajaran}', 'PelajaranController@edit')->name('pelajaran.edit');
+    Route::put('pelajaran/{pelajaran}', 'PelajaranController@update')->name('pelajaran.update');
+    Route::delete('pelajaran/{pelajaran}', 'PelajaranController@destroy')->name('pelajaran.delete');
+    
+    // hari
+    Route::get('hari', 'HariController@index')->name('hari');
+    Route::get('hari/create', 'HariController@create')->name('hari.create');
+    Route::post('hari', 'HariController@store')->name('hari.store');
+    Route::get('hari/{hari}', 'HariController@edit')->name('hari.edit');
+    Route::put('hari/{hari}', 'HariController@update')->name('hari.update');
+    Route::delete('hari/{hari}', 'HariController@destroy')->name('hari.delete');
+    
+    // lapor
+    Route::get('lapor', 'LaporController@index')->name('lapor');
+    Route::get('lapor/create', 'LaporController@create')->name('lapor.create');
+    Route::post('lapor', 'LaporController@store')->name('lapor.store');
+    Route::get('lapor/{lapor}', 'LaporController@edit')->name('lapor.edit');
+    Route::put('lapor/{lapor}', 'LaporController@update')->name('lapor.update');
+    Route::delete('lapor/{lapor}', 'LaporController@destroy')->name('lapor.delete');
+    
+    // absensi
+    Route::get('absensi', 'AbsensiController@index')->name('absensi');
+    Route::get('absensi/create', 'AbsensiController@create')->name('absensi.create');
+    Route::post('absensi', 'AbsensiController@store')->name('absensi.store');
+    Route::get('absensi/{absensi}', 'AbsensiController@edit')->name('absensi.edit');
+    Route::put('absensi/{absensi}', 'AbsensiController@update')->name('absensi.update');
+    Route::delete('absensi/{absensi}', 'AbsensiController@destroy')->name('absensi.delete');
 
     // blogs
     Route::get('blogs', 'BlogController@index')->name('blogs');

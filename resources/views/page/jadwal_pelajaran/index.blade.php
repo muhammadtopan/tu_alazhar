@@ -4,7 +4,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Pegawai</h4>
+            <h4 class="page-title">Jadwal Pelajaran</h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -26,47 +26,35 @@
     @endif
         <div class="card-body">
             <h5 class="card-title">
-                <a href="{{ route('pegawai.create') }}" class="btn btn-cyan btn-sm"><i class="fa fa-plus"></i> Add</a>
+                <a href="{{ route('jadwal_pelajaran.create') }}" class="btn btn-cyan btn-sm"><i class="fa fa-plus"></i> Add</a>
             </h5>
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>NIP</th>
-                            <th>Nama Pegawai</th>
-                            <th>Jabatan</th>
-                            <th>Email</th>
-                            <th>Nomor Telpon</th>
-                            <th>Alamat</th>
-                            <th>Tanggal Masuk</th>
-                            <th>Tempat Lahir</th>
-                            <th>Agama</th>
-                            <th>Gender</th>
-                            <th>Pendidikan</th>
-                            <th>Foto</th>
+                            <th>Hari</th>
+                            <th>Jam Masuk</th>
+                            <th>Jam Keluar</th>
+                            <th>Kelas</th>
+                            <th>Nama Guru</th>
+                            <th>Mata Pelajaran</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($pegawai as $no => $pegawai)
+                        @foreach($jadwal_pelajaran as $no => $jadwal_pelajaran)
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td>{{ $pegawai->nama_peg }}</td>
-                            <td>{{ $pegawai->nama_jabatan }}</td>
-                            <td>{{ $pegawai->nip }}</td>
-                            <td>{{ $pegawai->Email }}</td>
-                            <td>{{ $pegawai->no_tlp }}</td>
-                            <td>{{ $pegawai->alamat }}</td>
-                            <td>{{ $pegawai->tgl_masuk }}</td>
-                            <td>{{ $pegawai->tmp_lahir }}</td>
-                            <td>{{ $pegawai->agama }}</td>
-                            <td>{{ $pegawai->gender }}</td>
-                            <td>{{ $pegawai->pendidikan }}</td>
-                            <td><img src="{{ asset('backend/img/pegawai/' . $pegawai->foto )}}" alt="homepage" class="light-logo" style="width: 10em;"></td>
+                            <td>{{ $jadwal_pelajaran->hari }}</td>
+                            <td>{{ $jadwal_pelajaran->jam_awal }}</td>
+                            <td>{{ $jadwal_pelajaran->jam_akhir }}</td>
+                            <td>{{ $jadwal_pelajaran->nama_kelas }} {{ $jadwal_pelajaran->grup_kelas }}</td>
+                            <td>{{ $jadwal_pelajaran->nama_peg }}</td>
+                            <td>{{ $jadwal_pelajaran->nama_pelajaran }}</td>
                             <td>
-                                <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Update</a>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('pegawai.delete', $pegawai->id) }}')"><i class="fa fa-trash"></i> Delete</button>
+                                <a href="{{ route('jadwal_pelajaran.edit', $jadwal_pelajaran->id_jadwal_pelajaran) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Update</a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('jadwal_pelajaran.delete', $jadwal_pelajaran->id_jadwal_pelajaran) }}')"><i class="fa fa-trash"></i> Delete</button>
                             </td>
                         </tr>
                         @endforeach
