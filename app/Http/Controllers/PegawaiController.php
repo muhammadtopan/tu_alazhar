@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Guru_Model;
-use App\Sekolah_Model;
+use App\Pegawai_Model;
+use App\Jabatan_Model;
 use DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,101 +27,132 @@ class PegawaiController extends Controller
     }
     public function create()
     {
-        $sekolah = Sekolah_Model::all();
+        $jabatan = Jabatan_Model::all();
         return view(
-            'page/guru/form',
-            [
-                'url' => 'guru.store',
-                'sekolah' => $sekolah
+            'page/pegawai/form',
+            [   
+                'url' => 'pegawai.store',
+                'jabatan' => $jabatan
             ]
         );
     }
-    public function store(Request $request, Guru_Model $guru)
+    public function store(Request $request, Pegawai_Model $pegawai)
     {
         $validator = Validator::make($request->all(), [
-            'sekolah_id'         => 'required',
-            'guru_nama'         => 'required',
-            'guru_tgl_lahir'         => 'required',
-            'guru_jekel'         => 'required',
-            'guru_email'         => 'required|email|unique:tb_guru,guru_email',
-            'guru_notelp'         => 'required|numeric',
-            'guru_alamat'         => 'required',
+            'nip'         => 'required',
+            'nama_peg'         => 'required',
+            'jabatan_id'         => 'required',
+            'Email'         => 'required|email|unique:tb_pegawai,Email',
+            'no_tlp'         => 'required|numeric',
+            'alamat'         => 'required',
+            'tgl_masuk'         => 'required',
+            'tmp_lahir'         => 'required',
+            'agama'         => 'required',
+            'gender'         => 'required',
+            'pendidikan'         => 'required',
+            'foto'         => 'required|mimes:jpg,jpeg,png,bmp',
         ]);
 
         if ($validator->fails()) {
             return redirect()
-                ->route('guru.create')
+                ->route('pegawai.create')
                 ->withErrors($validator)
                 ->withInput();
         } else {
-    
-            $guru->sekolah_id = $request->input('sekolah_id');
-            $guru->guru_nama = $request->input('guru_nama');
-            $guru->guru_tgl_lahir = $request->input('guru_tgl_lahir');
-            $guru->guru_jekel = $request->input('guru_jekel');
-            $guru->guru_email = $request->input('guru_email');
-            $guru->guru_notelp = $request->input('guru_notelp');
-            $guru->guru_alamat = $request->input('guru_alamat');
-            $guru->save();
+            $foto = $request->file('foto'); 
+            $filename = time() . "." . $foto->getClientOriginalExtension(); 
+            $foto->move('backend/img/pegawai/', $filename);
+
+            $pegawai->nip = $request->input('nip');
+            $pegawai->nama_peg = $request->input('nama_peg');
+            $pegawai->jabatan_id = $request->input('jabatan_id');
+            $pegawai->Email = $request->input('Email');
+            $pegawai->no_tlp = $request->input('no_tlp');
+            $pegawai->alamat = $request->input('alamat');
+            $pegawai->tgl_masuk = $request->input('tgl_masuk');
+            $pegawai->tmp_lahir = $request->input('tmp_lahir');
+            $pegawai->agama = $request->input('agama');
+            $pegawai->gender = $request->input('gender');
+            $pegawai->pendidikan = $request->input('pendidikan');
+            $pegawai->foto = $filename;
+            $pegawai->save();
 
             return redirect()
-                ->route('guru')
+                ->route('pegawai')
                 ->with('message', 'Data berhasil ditambahkan');
         }
     }
 
-    public function edit(Guru_Model $guru)
+    public function edit(Pegawai_Model $pegawai)
     {
-        $sekolah = Sekolah_Model::all();
+        $jabatan = Jabatan_Model::all();
         return view(
-            'page/guru/form',
+            'page/pegawai/form',
             [
-                'guru' => $guru,
-                'sekolah' => $sekolah,
-                'url' => 'guru.update',
+                'pegawai' => $pegawai,
+                'jabatan' => $jabatan,
+                'url' => 'pegawai.update',
             ]
         );
     }
 
-    public function update(Request $request, Guru_Model $guru)
+    public function update(Request $request, Pegawai_Model $pegawai)
     {
         $validator = Validator::make($request->all(),[
-            'sekolah_id'        => 'required',
-            'guru_nama'         => 'required',
-            'guru_tgl_lahir'    => 'required',
-            'guru_jekel'        => 'required',
-            'guru_email'        => 'required|email',
-            'guru_notelp'       => 'required|numeric',
-            'guru_alamat'       => 'required',
+            'nip'         => 'required',
+            'nama_peg'         => 'required',
+            'jabatan_id'         => 'required',
+            'Email'         => 'required|email',
+            'no_tlp'         => 'required|numeric',
+            'alamat'         => 'required',
+            'tgl_masuk'         => 'required',
+            'tmp_lahir'         => 'required',
+            'agama'         => 'required',
+            'gender'         => 'required',
+            'pendidikan'         => 'required',
+            'foto'         => 'mimes:jpg,jpeg,png,bmp',
         ]);
 
         if($validator->fails()){
             return redirect()
-                ->route('guru.update', $guru->guru_id)
+                ->route('pegawai.update', $pegawai->pegawai_id)
                 ->withErrors($validator)
                 ->withInput();
         }else{
-
-            $guru->sekolah_id = $request->input('sekolah_id');
-            $guru->guru_nama = $request->input('guru_nama');
-            $guru->guru_tgl_lahir = $request->input('guru_tgl_lahir');
-            $guru->guru_jekel = $request->input('guru_jekel');
-            $guru->guru_email = $request->input('guru_email');
-            $guru->guru_notelp = $request->input('guru_notelp');
-            $guru->guru_alamat = $request->input('guru_alamat');
-            $guru->save();
+            // cek apakah user kirim gambar lagi/tidak 
+            if ($request->hasFile('foto')) {
+                // cari nama foto lama lalu hapus 
+                unlink('backend/img/pegawai/' . $pegawai->foto); 
+                $foto = $request->file('foto'); $filename = time() . "." . $foto->getClientOriginalExtension(); 
+                $foto->move('backend/img/pegawai/', $filename); $pegawai->foto = $filename; 
+            }
+            $pegawai->nip = $request->input('nip');
+            $pegawai->nama_peg = $request->input('nama_peg');
+            $pegawai->jabatan_id = $request->input('jabatan_id');
+            $pegawai->Email = $request->input('Email');
+            $pegawai->no_tlp = $request->input('no_tlp');
+            $pegawai->alamat = $request->input('alamat');
+            $pegawai->tgl_masuk = $request->input('tgl_masuk');
+            $pegawai->tmp_lahir = $request->input('tmp_lahir');
+            $pegawai->agama = $request->input('agama');
+            $pegawai->gender = $request->input('gender');
+            $pegawai->pendidikan = $request->input('pendidikan');
+            $pegawai->save();
 
             return redirect()
-                ->route('guru')
+                ->route('pegawai')
                 ->with('message', 'Data berhasil diedit');
         }
     }
 
-    public function destroy(Guru_Model $guru)
+    public function destroy(Pegawai_Model $pegawai)
     {
-        $guru->forceDelete();
+        $pegawai_file = $pegawai->foto; 
+        unlink('backend/img/pegawai/' . $pegawai_file); 
+        $pegawai->forceDelete();
+        
         return redirect()
-            ->route('guru')
+            ->route('pegawai')
             ->with('message', 'Data berhasil dihapus');
     }
 }

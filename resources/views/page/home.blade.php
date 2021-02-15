@@ -4,15 +4,15 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h4 class="page-title">Dashboard</h4>
-            <div class="ml-auto text-right">
+            <h4 class="page-title">Selamat Datang </h4>
+            <!-- <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
+                        <li class="breadcrumb-item active" aria-current="page"></li>
                     </ol>
                 </nav>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-md-flex align-items-center">
                         <div>
-                            <h4>Oi</h4>
+                            <h4>Oiiii</h4>
                         </div>
                     </div>
                     <div class="row">

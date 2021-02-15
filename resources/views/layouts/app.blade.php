@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/favicon.png') }}">
-    <title>Pro SAW</title>
+    <title>TU Al-Azhar</title>
     @include('includes.style')
 </head>
 
@@ -55,7 +55,7 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <!-- <img src="{{ asset('frontend/img/logo-insan-mandiri.png')}}" alt="homepage" class="light-logo" style="width: 10em;" > -->
-                            <h3 style="margin-top: 10px;">SPK - SAW</h3>
+                            <h3 style="margin-top: 10px;">TU  Al-Azhar</h3>
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
@@ -228,7 +228,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                All Rights Reserved by MEDIATAMAWEB.CO.ID. Developed by <a href="https://instagram.com/syahroel_712" target="_blank">Syahrul</a>.
+                All Rights Reserved by MEDIATAMAWEB.CO.ID. Developed by <a href="https://instagram.com/taufanomt" target="_blank">Taufano</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
