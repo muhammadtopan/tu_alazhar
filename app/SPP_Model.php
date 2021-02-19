@@ -13,6 +13,8 @@ class SPP_Model extends Model
     protected $fillable = [
         'id_siswa',
         'tgl_bayar',
+        'bulan_spp',
+        'tahun_spp',
         'upload_bukti',
         'status'
     ];

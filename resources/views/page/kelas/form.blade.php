@@ -45,8 +45,6 @@
                         @enderror
                     </div>
                 </div>
-
-            </div>
             <div class="border-top">
                 <div class="card-body">
                     <button type="submit" class="btn btn-info">Save</button>

@@ -22,6 +22,7 @@ class CreateTugasModelsTable extends Migration
             $table->string('file_tugas');
             $table->date('deadline_tugas');            
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,8 @@ class DashboardController extends Controller
         $user = new User_Model();
         $data_user = $user->CheckLoginAdmin($request->input("username"), $request->input("password"));
         // dd($data_user);
-        if ($data_user) {
+        if ($data_user) 
+        {
             $token = JwtHelper::BuatToken($data_user);
 
             // masukan data login ke session
@@ -30,8 +31,10 @@ class DashboardController extends Controller
             $request->session()->put('id_user', $data_user->id_user);
             $request->session()->put('token', $token);
             // redirect ke halaman home
-            return redirect('dashboard')->with("pesan", "Selamat Datang " . session('username'));
-        } else {
+            return redirect('dashboard')->with("pesan", "Selamat datang " . session('username'));
+        } 
+        else 
+        {
             return back()->with("pesan", "Username atau Password Salah");
         }
     }
@@ -39,6 +42,11 @@ class DashboardController extends Controller
     public function register()
     {
         return view('auth/register');
+    }
+    
+    public function register_guru()
+    {
+        return view('auth/register_guru');
     }
 
     public function registerAdmin(Request $r)
@@ -55,10 +63,27 @@ class DashboardController extends Controller
                 'username' => $username,
                 'password' => $pwd,
                 'id_s' => 1,
-                'level' => 4,
+                'level' => 4
             );
             DB::table('tb_user')->insert($data);
             return redirect('/')->with("pesan", "Register Sukses");
+    }
+    
+    public function registerGuru(Request $r)
+    {
+        $username = $r->username;
+        $password = $r->password;
+        $pwd = Hash::make($password);
+
+        
+            $data = array(
+                'username' => $username,
+                'password' => $pwd,
+                'id_s' => 2,
+                'level' => 3
+            );
+            DB::table('tb_user')->insert($data);
+            return redirect('/guru')->with("pesan", "Register Sukses");
     }
 
     function logout(Request $request)
