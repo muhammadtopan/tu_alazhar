@@ -20,6 +20,7 @@ class CreateIzinModelsTable extends Migration
             $table->date('tgl_izin');
             $table->string('foto_izin');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

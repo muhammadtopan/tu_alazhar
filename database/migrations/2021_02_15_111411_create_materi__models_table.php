@@ -20,6 +20,7 @@ class CreateMateriModelsTable extends Migration
             $table->string('materi_pelajaran');
             $table->string('nama_pelajaran');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

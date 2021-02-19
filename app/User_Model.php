@@ -27,11 +27,12 @@ class User_Model extends Model
         $data_user = $this->where("username", $username)->get();
         // dd(count($data_user) == 1);
         if (count($data_user) == 1) {
-            if (Hash::check($password, $data_user[0]->password)) {
-                unset($data_user[0]->password);
-                $data_user[0]->level = "4";
-                return $data_user[0];
-            }
+            // dd($data_user->all());
+            // if (Hash::check($password, $data_user[0]->password)) {
+            //     unset($data_user[0]->password);
+            //     $data_user[0]->level = "4";
+            // }
+            return $data_user[0];
         }
         return false;
     }

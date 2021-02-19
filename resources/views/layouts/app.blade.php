@@ -55,7 +55,11 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             <!-- <img src="{{ asset('frontend/img/logo-insan-mandiri.png')}}" alt="homepage" class="light-logo" style="width: 10em;" > -->
-                            <h3 style="margin-top: 10px;">TU  Al-Azhar</h3>
+                            @if( Session::get('level') == '4')
+                            <h3 style="margin-top: 10px;">TU Al-Azhar</h3>
+                            @else
+                            <h3 style="margin-top: 10px;">Al-Azhar</h3>
+                            @endif
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->

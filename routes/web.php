@@ -10,12 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::middleware(['belum_login'])->group(function () {
+    // tu
     Route::get('/', 'DashboardController@index')->name('/');
-    Route::post('aksilogin', 'DashboardController@loginAdmin')->name('aksilogin');
     Route::get('register', 'DashboardController@register')->name('register');
     Route::post('aksiregister', 'DashboardController@registerAdmin')->name('aksiregister');
+    Route::post('aksilogin', 'DashboardController@loginAdmin')->name('aksilogin');
+    
+    // guru
+    Route::get('guru', 'DashboardController@index')->name('guru');
+    Route::get('regis_guru', 'DashboardController@register_guru')->name('regis_guru');
+    Route::post('aksi_r_guru', 'DashboardController@registerGuru')->name('aksi_r_guru');
+    Route::post('aksi_l_guru', 'DashboardController@loginAdmin')->name('aksi_l_guru');
 });
 
 Route::middleware(['sudah_login'])->group(function () {
@@ -101,6 +107,14 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::put('hari/{hari}', 'HariController@update')->name('hari.update');
     Route::delete('hari/{hari}', 'HariController@destroy')->name('hari.delete');
     
+    // semester
+    Route::get('semester', 'SemesterController@index')->name('semester');
+    Route::get('semester/create', 'SemesterController@create')->name('semester.create');
+    Route::post('semester', 'SemesterController@store')->name('semester.store');
+    Route::get('semester/{semester}', 'SemesterController@edit')->name('semester.edit');
+    Route::put('semester/{semester}', 'SemesterController@update')->name('semester.update');
+    Route::delete('semester/{semester}', 'SemesterController@destroy')->name('semester.delete');
+    
     // lapor
     Route::get('lapor', 'LaporController@index')->name('lapor');
     Route::get('lapor/create', 'LaporController@create')->name('lapor.create');
@@ -116,6 +130,17 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('absensi/{absensi}', 'AbsensiController@edit')->name('absensi.edit');
     Route::put('absensi/{absensi}', 'AbsensiController@update')->name('absensi.update');
     Route::delete('absensi/{absensi}', 'AbsensiController@destroy')->name('absensi.delete');
+    
+    // spp
+    Route::get('spp', 'SppController@index')->name('spp');
+    Route::get('spp/create', 'SppController@create')->name('spp.create');
+    Route::post('spp', 'SppController@store')->name('spp.store');
+    Route::get('spp/{spp}', 'SppController@edit')->name('spp.edit');
+    Route::put('spp/{spp}', 'SppController@update')->name('spp.update');
+    Route::delete('spp/{spp}', 'SppController@destroy')->name('spp.delete');
+    
+    Route::post('spp/lunas', 'SppController@lunas')->name('spp.lunas');
+    Route::post('spp/utang', 'SppController@utang')->name('spp.utang');
 
     // blogs
     Route::get('blogs', 'BlogController@index')->name('blogs');
@@ -208,5 +233,54 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('legalitas/{legalitas}', 'LegalitasController@edit')->name('legalitas.edit');
     Route::put('legalitas/{legalitas}', 'LegalitasController@update')->name('legalitas.update');
     Route::delete('legalitas/{legalitas}', 'LegalitasController@destroy')->name('legalitas.delete');
+    
+    // Guru
+    // materi
+    Route::get('materi', 'MateriController@index')->name('materi');
+    Route::get('materi/create', 'MateriController@create')->name('materi.create');
+    Route::post('materi', 'MateriController@store')->name('materi.store');
+    Route::get('materi/{materi}', 'MateriController@edit')->name('materi.edit');
+    Route::put('materi/{materi}', 'MateriController@update')->name('materi.update');
+    Route::delete('materi/{materi}', 'MateriController@destroy')->name('materi.delete');
+    
+    // tugas
+    Route::get('tugas', 'TugasController@index')->name('tugas');
+    Route::get('tugas/create', 'TugasController@create')->name('tugas.create');
+    Route::post('tugas', 'TugasController@store')->name('tugas.store');
+    Route::get('tugas/{tugas}', 'TugasController@edit')->name('tugas.edit');
+    Route::put('tugas/{tugas}', 'TugasController@update')->name('tugas.update');
+    Route::delete('tugas/{tugas}', 'TugasController@destroy')->name('tugas.delete');
+    
+    // kirim_tugas
+    Route::get('kirim_tugas', 'KirimTugasController@index')->name('kirim_tugas');
+    Route::get('kirim_tugas/create', 'KirimTugasController@create')->name('kirim_tugas.create');
+    Route::post('kirim_tugas', 'KirimTugasController@store')->name('kirim_tugas.store');
+    Route::get('kirim_tugas/{kirim_tugas}', 'KirimTugasController@edit')->name('kirim_tugas.edit');
+    Route::put('kirim_tugas/{kirim_tugas}', 'KirimTugasController@update')->name('kirim_tugas.update');
+    Route::delete('kirim_tugas/{kirim_tugas}', 'KirimTugasController@destroy')->name('kirim_tugas.delete');
+    
+    // quis
+    Route::get('quis', 'QuisController@index')->name('quis');
+    Route::get('quis/create', 'QuisController@create')->name('quis.create');
+    Route::post('quis', 'QuisController@store')->name('quis.store');
+    Route::get('quis/{quis}', 'QuisController@edit')->name('quis.edit');
+    Route::put('quis/{quis}', 'QuisController@update')->name('quis.update');
+    Route::delete('quis/{quis}', 'QuisController@destroy')->name('quis.delete');
+
+    // nilai
+    Route::get('nilai', 'NilaiController@index')->name('nilai');
+    Route::get('nilai/create', 'NilaiController@create')->name('nilai.create');
+    Route::post('nilai', 'NilaiController@store')->name('nilai.store');
+    Route::get('nilai/{nilai}', 'NilaiController@edit')->name('nilai.edit');
+    Route::put('nilai/{nilai}', 'NilaiController@update')->name('nilai.update');
+    Route::delete('nilai/{nilai}', 'NilaiController@destroy')->name('nilai.delete');
+
+    // izin
+    Route::get('izin', 'IzinController@index')->name('izin');
+    Route::get('izin/create', 'IzinController@create')->name('izin.create');
+    Route::post('izin', 'IzinController@store')->name('izin.store');
+    Route::get('izin/{izin}', 'IzinController@edit')->name('izin.edit');
+    Route::put('izin/{izin}', 'IzinController@update')->name('izin.update');
+    Route::delete('izin/{izin}', 'IzinController@destroy')->name('izin.delete');
 
 });

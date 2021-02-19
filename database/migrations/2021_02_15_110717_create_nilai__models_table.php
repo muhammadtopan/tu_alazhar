@@ -19,6 +19,7 @@ class CreateNilaiModelsTable extends Migration
             $table->integer('id_pelajaran');
             $table->integer('nilai');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -11,7 +11,8 @@ class Kelas_Model extends Model
     protected $table = "tb_kelas";
     protected $primaryKey = 'id_kelas';
     protected $fillable = [
+        'id_semester',
         'nama_kelas',
-        'grup_kelas',
+        'grup_kelas'
     ];
 }

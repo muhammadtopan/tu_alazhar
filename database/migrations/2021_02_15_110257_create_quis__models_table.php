@@ -24,6 +24,7 @@ class CreateQuisModelsTable extends Migration
             $table->text('pil_d');
             $table->text('kunci');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

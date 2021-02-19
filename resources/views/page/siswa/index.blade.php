@@ -18,12 +18,12 @@
 </div>
 <div class="container-fluid">
     <div class="card">
-    @if(session()->has('message'))
-    <div class="alert alert-success">
+    
+    <div class="alert alert-success" style="display:none" id="message">
         <strong>{{ session()->get('message') }}</strong>
         <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
     </div>
-    @endif
+    
         <div class="card-body">
             <h5 class="card-title">
                 <a href="{{ route('siswa.create') }}" class="btn btn-cyan btn-sm"><i class="fa fa-plus"></i> Add</a>
@@ -49,7 +49,7 @@
                         @foreach($siswa as $no => $siswa)
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td><img src="{{ asset('backend/img/siswa/' . $siswa->foto_siswa )}}" alt="homepage" class="light-logo" style="width: 10em;"></td>  
+                            <td><img src="{{ asset('backend/img/siswa/' . $siswa->foto_siswa )}}" alt="homepage" class="light-logo" style="width: 10em;"></td>
                             <td>{{ $siswa->nama_siswa }}</td>
                             <td>{{ $siswa->gender_siswa }}</td>
                             <td>{{ $siswa->nohp_siswa }}</td>
@@ -113,4 +113,12 @@
     }
 </script>
 
+@if (session()->has('message'))
+<script>
+    $('#message').show();
+    setInterval(function(){
+        $('#message').hide();
+    }, 5000);
+</script>
+@endif
 @endsection
