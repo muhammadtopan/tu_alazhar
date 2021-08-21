@@ -44,6 +44,11 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('pegawai/{pegawai}', 'PegawaiController@edit')->name('pegawai.edit');
     Route::put('pegawai/{pegawai}', 'PegawaiController@update')->name('pegawai.update');
     Route::delete('pegawai/{pegawai}', 'PegawaiController@destroy')->name('pegawai.delete');
+    
+    Route::post('exportExcel','PegawaiController@exportExcel')->name('exportExcel');
+    Route::post('cetakPegawai','PegawaiController@cetakPegawai')->name('cetakPegawai');
+    
+
 
     // jabatan
     Route::get('jabatan', 'JabatanController@index')->name('jabatan');
@@ -66,11 +71,17 @@ Route::middleware(['sudah_login'])->group(function () {
 
     // siswa
     Route::get('siswa', 'SiswaController@index')->name('siswa');
+    Route::get('siswa/verified', 'SiswaController@verified')->name('siswa-verified');
     Route::get('siswa/create', 'SiswaController@create')->name('siswa.create');
     Route::post('siswa', 'SiswaController@store')->name('siswa.store');
     Route::get('siswa/{siswa}', 'SiswaController@edit')->name('siswa.edit');
     Route::put('siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
     Route::delete('siswa/{siswa}', 'SiswaController@destroy')->name('siswa.delete');
+
+    Route::post('siswa/terdaftar', 'SiswaController@terdaftar')->name('siswa.terdaftar');
+    Route::post('siswa/tdk_terdaftar', 'SiswaController@tdk_terdaftar')->name('siswa.tdk_terdaftar');
+
+    Route::post('exportExcelSiswa','SiswaController@exportExcel')->name('exportExcelSiswa');
     
     // jam ajar
     Route::get('jam_ajar', 'JamAjarController@index')->name('jam_ajar');
@@ -90,6 +101,15 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@edit')->name('jadwal_pelajaran.edit');
     Route::put('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@update')->name('jadwal_pelajaran.update');
     Route::delete('jadwal_pelajaran/{jadwal_pelajaran}', 'JadwalPelajaranController@destroy')->name('jadwal_pelajaran.delete');
+    
+    
+    // jadwal ujian
+    Route::get('jadwal_ujian', 'JadwalUjianController@index')->name('jadwal_ujian');
+    Route::get('jadwal_ujian/create', 'JadwalUjianController@create')->name('jadwal_ujian.create');
+    Route::post('jadwal_ujian', 'JadwalUjianController@store')->name('jadwal_ujian.store');
+    Route::get('jadwal_ujian/{jadwal_ujian}', 'JadwalUjianController@edit')->name('jadwal_ujian.edit');
+    Route::put('jadwal_ujian/{jadwal_ujian}', 'JadwalUjianController@update')->name('jadwal_ujian.update');
+    Route::delete('jadwal_ujian/{jadwal_ujian}', 'JadwalUjianController@destroy')->name('jadwal_ujian.delete');
     
     // mata pelajaran
     Route::get('pelajaran', 'PelajaranController@index')->name('pelajaran');
@@ -123,6 +143,16 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::put('lapor/{lapor}', 'LaporController@update')->name('lapor.update');
     Route::delete('lapor/{lapor}', 'LaporController@destroy')->name('lapor.delete');
     
+    // surat
+    Route::get('surat', 'SuratController@index')->name('surat');
+    Route::get('surat/create', 'SuratController@create')->name('surat.create');
+    Route::post('surat', 'SuratController@store')->name('surat.store');
+    Route::get('surat/{surat}', 'SuratController@edit')->name('surat.edit');
+    Route::put('surat/{surat}', 'SuratController@update')->name('surat.update');
+    Route::delete('surat/{surat}', 'SuratController@destroy')->name('surat.delete');
+    Route::post('exportSurat','SuratController@exportSurat')->name('exportSurat');
+
+    
     // absensi
     Route::get('absensi', 'AbsensiController@index')->name('absensi');
     Route::get('absensi/create', 'AbsensiController@create')->name('absensi.create');
@@ -130,6 +160,10 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('absensi/{absensi}', 'AbsensiController@edit')->name('absensi.edit');
     Route::put('absensi/{absensi}', 'AbsensiController@update')->name('absensi.update');
     Route::delete('absensi/{absensi}', 'AbsensiController@destroy')->name('absensi.delete');
+    Route::post('exportAbsen','AbsensiController@exportAbsen')->name('exportAbsen');
+    
+    // berkas
+    Route::get('berkas', 'BerkasController@index')->name('berkas');
     
     // spp
     Route::get('spp', 'SppController@index')->name('spp');
@@ -138,6 +172,7 @@ Route::middleware(['sudah_login'])->group(function () {
     Route::get('spp/{spp}', 'SppController@edit')->name('spp.edit');
     Route::put('spp/{spp}', 'SppController@update')->name('spp.update');
     Route::delete('spp/{spp}', 'SppController@destroy')->name('spp.delete');
+    Route::post('exportSPP','SppController@exportSPP')->name('exportSPP');
     
     Route::post('spp/lunas', 'SppController@lunas')->name('spp.lunas');
     Route::post('spp/utang', 'SppController@utang')->name('spp.utang');

@@ -8,11 +8,14 @@ use App\Pegawai_Model;
 use App\Jabatan_Model;
 use DB;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
     public function index()
     {
+        $jabatan = DB::table('tb_jabatan')->get();
+
         $pegawai = DB::table('tb_pegawai')
                 ->join('tb_jabatan', 'tb_jabatan.id_jabatan', '=', 'tb_pegawai.jabatan_id')
                 ->select('tb_pegawai.*', 'tb_jabatan.nama_jabatan')
@@ -21,7 +24,8 @@ class PegawaiController extends Controller
         return view(
             'page/pegawai/index',
             [
-                'pegawai' => $pegawai
+                'pegawai' => $pegawai,
+                'jabatans' => $jabatan,
             ]
         );
     }
@@ -82,7 +86,7 @@ class PegawaiController extends Controller
                 ->with('message', 'Data berhasil ditambahkan');
         }
     }
-
+ 
     public function edit(Pegawai_Model $pegawai)
     {
         $jabatan = Jabatan_Model::all();
@@ -154,5 +158,31 @@ class PegawaiController extends Controller
         return redirect()
             ->route('pegawai')
             ->with('message', 'Data berhasil dihapus');
+    }
+
+    public function exportExcel(Request $request){
+        if ($request->jabatan == "0") {
+            $pegawai = DB::table('tb_pegawai')
+                        ->join('tb_jabatan', 'tb_pegawai.jabatan_id', '=', 'tb_jabatan.id_jabatan')
+                        ->get();
+        }elseif ($request->jabatan == "123") {
+            $pegawai = DB::table('tb_pegawai')
+                        ->join('tb_jabatan', 'tb_pegawai.jabatan_id', '=', 'tb_jabatan.id_jabatan')
+                        ->where("jabatan_id", "!=", "3")
+                        ->get();
+        }elseif ($request->jabatan == "3") {
+            $pegawai = DB::table('tb_pegawai')
+                        ->join('tb_jabatan', 'tb_pegawai.jabatan_id', '=', 'tb_jabatan.id_jabatan')
+                        ->where("jabatan_id", "=", "3")
+                        ->get();
+        }else{
+            return redirect()->back()->withErrors('message', 'bukan pilihan yang disediakan');
+        }
+        return view(
+            'page/pegawai/cetak',
+            [
+                'pegawai' => $pegawai,  
+            ]
+        );
     }
 }

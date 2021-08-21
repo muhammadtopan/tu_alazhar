@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="d-md-flex align-items-center">
                         <div>
-                            <h4>Al-azhar</h4>
+                            <h4>SD Al-azhar</h4>
                         </div>
                     </div>
                     <div class="row">

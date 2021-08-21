@@ -19,7 +19,7 @@
 <div class="container-fluid">
     <div class="card">
 
-        <form class="form-horizontal" action="{{ route($url, $kelas->id_kelas ?? null) }}" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" action="{{ route($url, $kelas->id_kelas ?? null) }}" method="POST" enctype="multipart/form-data"> 
             @csrf
             @if(isset($kelas))
             @method('put')
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Grup Kelas</label>
+                    <label>Rombel</label>
                     <div class="input-group">
                         <input type="text" class="form-control @error('grup_kelas') {{ 'is-invalid' }} @enderror" name="grup_kelas" value="{{ old('grup_kelas') ?? $kelas->grup_kelas ?? '' }}">
                         @error('grup_kelas')

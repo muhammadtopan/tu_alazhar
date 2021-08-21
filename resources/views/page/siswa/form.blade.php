@@ -1,5 +1,4 @@
     @extends('layouts.app')
-
     @section('content')
     <div class="page-breadcrumb">
         <div class="row">
@@ -33,6 +32,17 @@
                             <input type="text" class="form-control @error('nama_siswa') {{ 'is-invalid' }} @enderror" name="nama_siswa" value="{{ old('nama_siswa') ?? $siswa->nama_siswa ?? '' }}">
                             
                             @error('nama_siswa')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <input type="hidden" id="nisauto" name="nis">
+                    <div class="form-group">
+                        <label>NISN</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control @error('nisn') {{ 'is-invalid' }} @enderror" name="nisn" value="{{ old('nisn') ?? $siswa->nisn ?? '' }}">
+                            
+                            @error('nisn')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -106,7 +116,7 @@
                                 class="form-control @error('id_kelas') {{ 'is-invalid' }} @enderror">
                                 <option value="">-Pilih-</option>
                                 @foreach($kelas as $no => $kelas)
-                                    <option value="{{ $kelas->id_kelas }}">
+                                    <option value="{{ old('id_kelas') ?? $kelas->id_kelas ?? '' }}">
                                     {{ $kelas->nama_kelas }}</option>
                                 @endforeach 
                             </select>
@@ -175,5 +185,13 @@
             });
             
         </script>
+
     @endif
+        <script>
+            let thn = new Date().getFullYear().toString();         
+            let sub = thn.substring(2,4);
+            let next = parseInt(sub)+1;
+            let mix = sub + next;
+            $("#nisauto").val(mix);
+        </script>
     @endsection

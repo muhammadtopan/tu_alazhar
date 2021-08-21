@@ -65,7 +65,7 @@
                         @foreach($jabatan as $no => $jabatan)
                             <option value="{{ $jabatan->id_jabatan }}">
                             {{ $jabatan->nama_jabatan }}</option>
-                        @endforeach 
+                        @endforeach
                     </select>
                     @if(isset($pegawai))
                     <script>

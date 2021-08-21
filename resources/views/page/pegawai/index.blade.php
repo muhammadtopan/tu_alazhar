@@ -16,6 +16,34 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid" style="min-height: auto; padding-bottom: 0px">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" action="{{ url('exportExcel') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <label>Status Pegawai</label>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select name="jabatan" id="jabatan" class="form-control">
+                                    <option value="0">Semua</option>
+                                    <option value="123">Karyawan</option>
+                                    <option value="3">Guru</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <button class="btn btn-cyan" type="submit">Cetak Laporan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="card">
     @if(session()->has('message'))

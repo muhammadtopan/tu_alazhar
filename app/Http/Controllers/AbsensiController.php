@@ -21,6 +21,7 @@ class AbsensiController extends Controller
                 ->select('tb_absensi.*', 'tb_pegawai.nama_peg',
                         'tb_jam_ajar.jam_awal')
                 ->get();
+        // dd($absensi);
         return view(
             'page/absensi/index',
             [
@@ -81,5 +82,18 @@ class AbsensiController extends Controller
         return redirect()
             ->route('jabatan')
             ->with('message', 'Data berhasil dihapus');
+    }
+
+    public function exportAbsen(Request $request)
+    {
+        // dd($request);
+        $data['absensi']  = DB::table('tb_absensi')
+                ->join('tb_pegawai', 'tb_pegawai.id', '=', 'tb_absensi.id_pegawai')
+                ->join('tb_jam_ajar', 'tb_jam_ajar.id_jam', '=', 'tb_absensi.jam_ke')
+                ->whereBetween('tanggal', [$request->tglAwal, $request->tglAkhir])
+                ->select('tb_absensi.*', 'tb_pegawai.nama_peg',
+                        'tb_jam_ajar.jam_awal')
+                ->get();
+        return view('page/absensi/cetak', $data);
     }
 }

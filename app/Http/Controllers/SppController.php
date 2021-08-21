@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\SPP_Model;
 use App\Siswa_Model;
+use App\Kelas_Model;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -14,15 +15,16 @@ class SppController extends Controller
 {
     public function index()
     {
+        $kelas = Kelas_Model::get();
         $spp = DB::table('tb_spp')
                 ->join('tb_siswa', 'tb_siswa.id_siswa', '=', 'tb_spp.id_siswa')
-                ->select('tb_spp.*', 'tb_siswa.nama_siswa')
                 ->get();
 
         return view(
             'page/spp/index',
             [
-                'spp' => $spp
+                'kelas' => $kelas,
+                'spp' => $spp,
             ]
         );
     }
@@ -125,6 +127,17 @@ class SppController extends Controller
             ->where('id_spp', $request->id_spp)
             ->update(['status' => 1]);
         return json_encode($spp);
+    }
+
+    public function exportSPP(Request $request)
+    {
+        // dd($request);
+        $data['spp'] = DB::table('tb_spp')
+                ->join('tb_siswa', 'tb_siswa.id_siswa', '=', 'tb_spp.id_siswa')
+                ->join('tb_kelas', 'tb_siswa.id_kelas', '=', 'tb_kelas.id_kelas')
+                ->where('tb_siswa.id_kelas', $request->kelas)
+                ->get();
+        return view('page/spp/cetak', $data);
     }
 }
 

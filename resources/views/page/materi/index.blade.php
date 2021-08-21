@@ -44,9 +44,9 @@
                         @foreach($materi as $no => $materi)
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td>{{ $materi->nama_pelajaran }}</td>
+                            <td>{{ $materi->nama_pelajaran2 }}</td>
                             <td>{{ $materi->nama_kelas }} {{ $materi->grup_kelas }}</td>
-                            <td>{{ $materi->nama_pelajaran }}</td>
+                            <td>{{ $materi->nama_pelajaran}}</td>
                             <td><a href="{{ asset('backend/file/materi/' . $materi->materi_pelajaran) }}" class="btn btn-info btn-sm"><i class="fa fa-download"></i> Download</a></td>
                             <td>
                                 <a href="{{ route('materi.edit', $materi->id_materi) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Update</a>

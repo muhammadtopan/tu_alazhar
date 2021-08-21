@@ -16,6 +16,29 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid" style="min-height: auto; padding-bottom: 0px">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" action="{{ url('exportExcelSiswa') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" name="kelas" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <button class="btn btn-cyan" type="submit">Cetak Laporan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="card">
     
@@ -35,13 +58,15 @@
                             <th>No</th>
                             <th>Foto</th>
                             <th>Nama Siswa</th>
+                            <th>NIS</th>
+                            <th>NISN</th>
                             <th>Gender</th>
                             <th>Nomor Telpon</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
                             <th>Alamat</th>
-                            <th>Status</th>
                             <th>Kelas</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,21 +76,21 @@
                             <td>{{ $no + 1 }}</td>
                             <td><img src="{{ asset('backend/img/siswa/' . $siswa->foto_siswa )}}" alt="homepage" class="light-logo" style="width: 10em;"></td>
                             <td>{{ $siswa->nama_siswa }}</td>
+                            <td>{{ $siswa->nis }}</td>
+                            <td>{{ $siswa->nisn }}</td>
                             <td>{{ $siswa->gender_siswa }}</td>
                             <td>{{ $siswa->nohp_siswa }}</td>
                             <td>{{ $siswa->tempat_lahir_siswa }}</td>
                             <td>{{ $siswa->tanggal_lahir_siswa }}</td>
                             <td>{{ $siswa->alamat_siswa }}</td>
-                            <td>
-                            <?php 
-                                if($siswa->status_daftar == 0){
-                                    echo "Belum Terdaftar";
-                                }else{
-                                    echo "Terdaftar";
-                                }
-                            ?>
-                            </td>
                             <td>{{ $siswa->nama_kelas }} {{ $siswa->grup_kelas }}</td>
+                            <td>
+                                <label class="switch">
+                                    <?php $cek = $siswa->status_daftar ?>
+                                    <input type="checkbox" class="status_siswa" id="status_siswa<?= $siswa->id_siswa ?>" value="<?= $siswa->id_siswa ?>" onchange="cekStatus(<?= $siswa->id_siswa ?>, this, '<?= $siswa->nama_siswa ?>')" <?php echo ($cek == '1') ? "checked" : "" ?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </td>
                             <td>
                                 <a href="{{ route('siswa.edit', $siswa->id_siswa) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Update</a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('siswa.delete', $siswa->id_siswa) }}')"><i class="fa fa-trash"></i> Delete</button>
@@ -121,4 +146,33 @@
     }, 5000);
 </script>
 @endif
+<script>
+    function cekStatus(id_siswa, status_checked, nama_siswa) {
+        if (status_checked.checked) {
+            axios.post("{{ url('siswa/terdaftar') }}", {
+                'id_siswa': id_siswa,
+                'nama_siswa': nama_siswa,
+            }).then(function(res) {
+                var id = res.data
+                toastr.info('Sukses.. Siswa Terdaftar')
+                // toastr.info('Sukses.. Barang Di Set Tidak Laku')
+                // $(".cek_menipis").prop("checked", true);
+            }).catch(function(err) {
+                console.log(err)
+                toastr.warning('ERROR..')
+                // $(".cek_menipis").prop("checked", false);
+            })
+        } else {
+            axios.post("{{ url('siswa/tdk_terdaftar') }}", {
+                'id_siswa': id_siswa
+            }).then(function(res) {
+                var data = res.data
+                toastr.warning('Siswa Belum Terdaftar')
+                // toastr.info('Sukses.. Barang Di Set Laku')
+            }).catch(function(err) {
+                toastr.warning('ERROR..')
+            })
+        }
+    }
+</script>
 @endsection

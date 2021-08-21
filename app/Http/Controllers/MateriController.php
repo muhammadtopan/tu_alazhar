@@ -18,9 +18,10 @@ class MateriController extends Controller
         $materi = DB::table('tb_materi')
                 ->join('tb_pelajaran', 'tb_pelajaran.id_pelajaran', '=', 'tb_materi.id_pelajaran')
                 ->join('tb_kelas', 'tb_kelas.id_kelas', '=', 'tb_materi.id_kelas')
-                ->select('tb_materi.*', 'tb_pelajaran.nama_pelajaran', 
+                ->select('tb_materi.*', 'tb_pelajaran.nama_pelajaran as nama_pelajaran2', 
                         'tb_kelas.nama_kelas', 'tb_kelas.grup_kelas')
                 ->get();
+        $judul = DB::table('tb_materi')->select('tb_materi.nama_pelajaran');
         return view(
             'page/materi/index',
             [

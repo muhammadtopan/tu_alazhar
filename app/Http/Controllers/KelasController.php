@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Kelas_Model;
-use App\Semester_Model;
+use App\Semester_Model; 
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -79,7 +79,6 @@ class KelasController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }else{
-
             $kelas->nama_kelas = $request->input('nama_kelas');
             $kelas->grup_kelas = $request->input('grup_kelas');
             $kelas->save();

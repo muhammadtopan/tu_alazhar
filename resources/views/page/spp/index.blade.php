@@ -1,6 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<?php
+function tanggal_indonesia($tgl)
+{
+
+    $nama_bulan = array(
+        1 => "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
+        "September", "Oktober", "November", "Desember"
+    );
+    $bulan = $nama_bulan[$tgl];
+    $text = "";
+
+    $text .= $bulan;
+    return $text;
+} ?>
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
@@ -16,6 +30,42 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid" style="min-height: auto; padding-bottom: 0px">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" action="{{ url('exportSPP') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="kelas">Kelas</label>
+                            <div class="input-group">
+                                <select name="kelas" id="kelas" class="form-control">
+                                    @foreach($kelas as $no => $kls)
+                                        <option value="{{ $kls->id_kelas }}">Kelas {{ $kls->nama_kelas.$kls->grup_kelas}}</option>
+                                    @endforeach
+                                </select>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="kelas">Bulan</label>
+                            <div class="input-group">
+                                <input type="month" name="month" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center my-auto">
+                        <button class="btn btn-cyan" type="submit">Cetak Laporan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="card">
     
@@ -25,9 +75,9 @@
     </div>
     
         <div class="card-body">
-            <h5 class="card-title">
+            <!-- <h5 class="card-title">
                 <a href="{{ route('spp.create') }}" class="btn btn-cyan btn-sm"><i class="fa fa-plus"></i> Add</a>
-            </h5>
+            </h5> -->
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>
@@ -41,20 +91,21 @@
                             </tr>
                     </thead>
                     <tbody>
-                        @foreach($spp as $no => $spp)
+                        @foreach($spp as $no => $spp) 
                         <tr>
                             <td>{{ $no + 1 }}</td>
                             <td>{{ $spp->nama_siswa }}</td>
                             <td>
-                                {{  
-                                    \Carbon\Carbon::parse($spp->bulan_spp)->format('m') 
-                                }}
+                                <?php 
+                                    echo tanggal_indonesia($spp->bulan_spp)
+                                ?>                                
                                 {{ $spp->tahun_spp }}
-                                {{ $spp->bulan_spp }}
                             </td>
                             <td>{{ $spp->tgl_bayar }}</td>
                             <td>
-                                <img src="{{ asset('backend/img/bukti_spp/' . $spp->upload_bukti )}}" alt="homepage" class="light-logo" style="width: 10em;">
+                                <a onclick="tampilModal('{{ $spp->upload_bukti }}')">
+                                    <img src="{{ asset('backend/img/bukti_spp/' . $spp->upload_bukti )}}" alt="homepage" class="light-logo" style="width: 10em;">
+                                </a>
                             </td>
                             <td>
                                 <label class="switch">
@@ -98,11 +149,37 @@
     </div>
 </div>
 
+<!-- modal foto -->
+<div class="modal fade" id="tampilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imgDetail" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // untuk hapus data
     function mHapus(url) {
         $('#ModalHapus').modal()
         $('#formDelete').attr('action', url);
+    }
+    function tampilModal(foto) {
+        console.log(foto);
+        $('#imgDetail').attr('src', '{{ asset("backend/img/bukti_spp") }}/' + foto);
+        $('#tampilModal').modal()
     }
 </script>
 
@@ -117,7 +194,7 @@
 <script>
     function cekStatus(id_spp, stok_checked) {
         if (stok_checked.checked) {
-            axios.post("{{ url('spp/lunas') }}/", {
+            axios.post("{{ url('spp/lunas') }}", {
                 'id_spp': id_spp
             }).then(function(res) {
                 var id = res.data
@@ -134,7 +211,7 @@
                 'id_spp': id_spp
             }).then(function(res) {
                 var data = res.data
-                toastr.warning('Sukses.. Belum Lunas')
+                toastr.warning('Belum Lunas')
                 // toastr.info('Sukses.. Barang Di Set Laku')
             }).catch(function(err) {
                 toastr.warning('ERROR..')

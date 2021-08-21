@@ -4,6 +4,8 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/libs/select2/dist/css/select2.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/libs/jquery-minicolors/jquery.minicolors.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <!-- <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/libs/quill/dist/quill.snow.css')}}"> -->
 <!-- Custom CSS -->
 <link href="{{ asset('backend/dist/css/style.min.css')}}" rel="stylesheet">

@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/favicon.png') }}">
-    <title>TU Al-Azhar</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/iconAlazhar.png') }}">
+    <title>Al-Azhar</title>
     @include('includes.style')
 </head>
 
@@ -47,10 +47,10 @@
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('backend/assets/images/logo-icon.png')}}" alt="homepage" class="light-logo" />
+                            <img src="{{ asset('backend/assets/images/iconAlazhar.png')}}" alt="homepage" class="light-logo" style="width: 39px;" />
 
                         </b>
-                        <!--End Logo icon -->
+                        <!--End Logo icon -->   
                         <!-- Logo text -->
                         <span class="logo-text">
                             <!-- dark Logo text -->
