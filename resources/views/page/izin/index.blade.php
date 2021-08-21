@@ -47,7 +47,11 @@
                             <td>{{ $izin->nama_siswa }}</td>
                             <td>{{ $izin->keterangan_izin }}</td>
                             <td>{{ $izin->tgl_izin }}</td>
-                            <td><img src="{{ asset('backend/img/izin/' . $izin->foto_izin )}}" alt="homepage" class="light-logo" style="width: 10em;"></td>
+                            <td>
+                                <a onclick="tampilModal('{{ $izin->foto_izin }}')">
+                                    <img src="{{ asset('backend/img/izin/' . $izin->foto_izin )}}" alt="homepage" class="light-logo" style="width: 10em;">
+                                </a>
+                            </td>
                             <td>
                                 <a href="{{ route('izin.edit', $izin->id_izin) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Update</a>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="mHapus('{{ route('izin.delete', $izin->id_izin) }}')"><i class="fa fa-trash"></i> Delete</button>
@@ -87,11 +91,37 @@
     </div>
 </div>
 
+<!-- modal foto -->
+<div class="modal fade" id="tampilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="" id="imgDetail" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // untuk hapus data
     function mHapus(url) {
         $('#ModalHapus').modal()
         $('#formDelete').attr('action', url);
+    }
+    function tampilModal(foto) {
+        console.log(foto);
+        $('#imgDetail').attr('src', '{{ asset("backend/img/izin") }}/' + foto);
+        $('#tampilModal').modal()
     }
 </script>
 

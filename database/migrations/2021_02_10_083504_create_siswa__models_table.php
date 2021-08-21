@@ -15,6 +15,9 @@ class CreateSiswaModelsTable extends Migration
     {
         Schema::create('tb_siswa', function (Blueprint $table) {
             $table->bigIncrements('id_siswa');
+            $table->string('ta');
+            $table->string('nis');
+            $table->string('nisn');
             $table->string('nama_siswa');
             $table->string('gender_siswa');
             $table->string('nohp_siswa');

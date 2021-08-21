@@ -32,6 +32,9 @@
 <script src="{{ asset('backend/assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js')}}"></script>
 <script src="{{ asset('backend/assets/libs/jquery-minicolors/jquery.minicolors.min.js')}}"></script>
 <script src="{{ asset('backend/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <!-- <script src="{{ asset('backend/assets/libs/quill/dist/quill.min.js')}}"></script> -->
 <script src="{{ asset('backend/assets/libs/toastr/build/toastr.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>

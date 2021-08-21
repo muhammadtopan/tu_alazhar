@@ -10,7 +10,7 @@ use DB;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index() 
     {
         return view('auth/login');
     }
@@ -25,13 +25,18 @@ class DashboardController extends Controller
         {
             $token = JwtHelper::BuatToken($data_user);
 
-            // masukan data login ke session
-            $request->session()->put('username', $data_user->username);
-            $request->session()->put('level', $data_user->level);
-            $request->session()->put('id_user', $data_user->id_user);
-            $request->session()->put('token', $token);
-            // redirect ke halaman home
-            return redirect('dashboard')->with("pesan", "Selamat datang " . session('username'));
+            if($data_user->level==4){
+                // masukan data login ke session
+                $request->session()->put('username', $data_user->username);
+                $request->session()->put('level', $data_user->level);
+                $request->session()->put('id_user', $data_user->id_user);
+                $request->session()->put('token', $token);
+                // redirect ke halaman home
+                return redirect('dashboard')->with("pesan", "Selamat datang " . session('username'));
+            }
+            else{
+                return back()->with("pesan", "Username atau Password Salah");
+            }
         } 
         else 
         {

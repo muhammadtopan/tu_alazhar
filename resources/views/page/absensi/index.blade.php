@@ -16,6 +16,38 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid" style="min-height: auto; padding-bottom: 0px">
+    <div class="card">
+        <div class="card-body">
+            <form class="form-horizontal" action="{{ url('exportAbsen') }}" method="post" enctype="multipart/form-data">
+            @csrf
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Pilih Tanggal</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="tglAwal" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Pilih Tanggal</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="tglAkhir" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-cyan" type="submit">Cetak Laporan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="card">
     @if(session()->has('message'))
@@ -25,9 +57,9 @@
     </div>
     @endif
         <div class="card-body">
-            <h5 class="card-title">
+            <!-- <h5 class="card-title">
                 <a href="{{ route('absensi.create') }}" class="btn btn-cyan btn-sm"><i class="fa fa-plus"></i> Add</a>
-            </h5>
+            </h5> -->
             <div class="table-responsive">
                 <table id="zero_config" class="table table-striped table-bordered">
                     <thead>

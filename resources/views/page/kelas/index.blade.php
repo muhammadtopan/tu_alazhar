@@ -34,7 +34,7 @@
                         <tr>
                             <th>No</th>
                             <th>Kelas</th>
-                            <th>Grup Kelas</th>
+                            <th>Rombel</th>
                             <th>Action</th>
                         </tr>
                     </thead>
